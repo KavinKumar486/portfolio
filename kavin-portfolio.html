@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kavin Kumar B — Backend &amp; ML Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1117;
+    --bg-raised:#131A22;
+    --line:#242C36;
+    --line-strong:#39424F;
+    --text:#E8ECF1;
+    --text-muted:#8D97A6;
+    --text-dim:#5C6572;
+    --gold:#E3A83B;
+    --teal:#4FD1A5;
+    --red:#D9776C;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'IBM Plex Sans', -apple-system, sans-serif;
+    --maxw:920px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--gold); color:#12100A; }
+
+  a{ color:inherit; }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:40;
+    background:rgba(13,17,23,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:56px;
+  }
+  .nav-id{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-muted);
+  }
+  .nav-links{
+    display:flex;
+    gap:22px;
+    list-style:none;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .nav-links a{
+    color:var(--text-muted);
+    text-decoration:none;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-toggle{ display:none; }
+
+  @media (max-width:640px){
+    .nav-links{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  header.hero{
+    padding:150px 0 90px;
+    border-bottom:1px solid var(--line);
+    opacity:0;
+    animation:rise .7s ease forwards .1s;
+  }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion:reduce){
+    header.hero{ animation:none; opacity:1; }
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.35fr 1fr;
+    gap:56px;
+    align-items:end;
+  }
+  @media (max-width:760px){
+    .hero-grid{ grid-template-columns:1fr; gap:40px; }
+  }
+
+  .role-tag{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--gold);
+    margin-bottom:18px;
+    letter-spacing:0.01em;
+  }
+
+  h1.name{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:clamp(34px, 5.2vw, 54px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin-bottom:22px;
+  }
+
+  .hero-desc{
+    color:var(--text-muted);
+    font-size:17px;
+    max-width:52ch;
+    margin-bottom:30px;
+  }
+
+  .hero-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .hero-links a{
+    font-family:var(--mono);
+    font-size:13px;
+    text-decoration:none;
+    color:var(--text);
+    border:1px solid var(--line-strong);
+    padding:8px 14px;
+    border-radius:3px;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .hero-links a:hover{
+    border-color:var(--gold);
+    color:var(--gold);
+  }
+
+  /* status readout panel */
+  .readout{
+    border:1px solid var(--line);
+    background:var(--bg-raised);
+    border-radius:4px;
+    padding:22px 22px 18px;
+    font-family:var(--mono);
+  }
+  .readout-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:12px;
+    color:var(--text-dim);
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+  }
+  .readout-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--teal);
+    display:inline-block;
+    margin-right:7px;
+    box-shadow:0 0 6px var(--teal);
+  }
+  .readout-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+    font-size:13px;
+  }
+  .readout-row:last-child{ border-bottom:none; }
+  .readout-row .k{ color:var(--text-muted); }
+  .readout-row .v{ color:var(--text); font-size:16px; font-weight:500; }
+
+  /* ---------- sections ---------- */
+  section{
+    padding:70px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom:none; }
+
+  .section-label{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  h2{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:26px;
+    margin-bottom:28px;
+    letter-spacing:-0.01em;
+  }
+
+  .lede{
+    max-width:64ch;
+    color:var(--text-muted);
+    font-size:16px;
+  }
+  .lede + .lede{ margin-top:14px; }
+
+  /* ---------- experience (spine) ---------- */
+  .timeline-item{
+    position:relative;
+    padding-left:28px;
+    border-left:1px solid var(--line-strong);
+  }
+  .timeline-item::before{
+    content:'';
+    position:absolute;
+    left:-5px; top:6px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--gold);
+  }
+  .exp-head{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .exp-role{ font-weight:600; font-size:17px; }
+  .exp-org{ color:var(--text-muted); font-size:15px; }
+  .exp-date{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    white-space:nowrap;
+  }
+  ul.bullets{
+    list-style:none;
+    margin-top:14px;
+  }
+  ul.bullets li{
+    position:relative;
+    padding-left:18px;
+    margin-bottom:10px;
+    color:var(--text-muted);
+    font-size:15px;
+  }
+  ul.bullets li::before{
+    content:'—';
+    position:absolute;
+    left:0;
+    color:var(--text-dim);
+  }
+
+  /* ---------- projects ---------- */
+  .project{
+    padding:26px 0;
+    border-top:1px solid var(--line);
+  }
+  .project:first-of-type{ border-top:none; padding-top:0; }
+  .project-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .project-tag{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--teal);
+    border:1px solid rgba(79,209,165,0.35);
+    padding:3px 9px;
+    border-radius:3px;
+    white-space:nowrap;
+  }
+  .project-title{
+    font-size:19px;
+    font-weight:600;
+  }
+  ul.bullets.tight li{ font-size:14.5px; }
+  .stack{
+    margin-top:14px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+  }
+
+  /* ---------- coding practice ---------- */
+  .coding-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-bottom:36px;
+  }
+  @media (max-width:640px){
+    .coding-grid{ grid-template-columns:1fr 1fr; }
+  }
+  .stat-cell{
+    background:var(--bg);
+    padding:20px 18px;
+  }
+  .stat-num{
+    font-family:var(--mono);
+    font-size:30px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .stat-label{
+    font-size:12.5px;
+    color:var(--text-muted);
+    margin-top:4px;
+  }
+
+  .chart-block{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+  }
+  @media (max-width:700px){
+    .chart-block{ grid-template-columns:1fr; }
+  }
+  .chart-caption{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+    margin-top:8px;
+  }
+
+  .diff-bar{
+    display:flex;
+    height:10px;
+    border-radius:2px;
+    overflow:hidden;
+    margin-top:18px;
+  }
+  .diff-easy{ background:var(--teal); }
+  .diff-med{ background:var(--gold); }
+  .diff-hard{ background:var(--red); }
+  .diff-legend{
+    display:flex;
+    gap:20px;
+    margin-top:12px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-muted);
+    flex-wrap:wrap;
+  }
+  .diff-legend span::before{
+    content:'●';
+    margin-right:6px;
+    font-size:9px;
+    position:relative;
+    top:-1px;
+  }
+  .legend-easy::before{ color:var(--teal); }
+  .legend-med::before{ color:var(--gold); }
+  .legend-hard::before{ color:var(--red); }
+
+  /* ---------- skills ---------- */
+  .skill-row{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:18px;
+    padding:14px 0;
+    border-top:1px solid var(--line);
+    align-items:baseline;
+  }
+  .skill-row:first-child{ border-top:none; }
+  @media (max-width:600px){
+    .skill-row{ grid-template-columns:1fr; gap:6px; }
+  }
+  .skill-cat{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+  }
+  .skill-vals{
+    color:var(--text-muted);
+    font-size:14.5px;
+  }
+  .skill-vals b{ color:var(--text); font-weight:500; }
+
+  /* ---------- leadership ---------- */
+  .lead-item{
+    padding:18px 0;
+    border-top:1px solid var(--line);
+  }
+  .lead-item:first-child{ border-top:none; }
+  .lead-role{ font-weight:600; font-size:15.5px; margin-bottom:4px; }
+  .lead-desc{ color:var(--text-muted); font-size:14.5px; }
+
+  /* ---------- contact / footer ---------- */
+  footer{
+    padding:60px 0 50px;
+  }
+  .contact-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  .contact-email{
+    font-family:var(--mono);
+    font-size:clamp(20px, 3.4vw, 30px);
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+    padding-bottom:4px;
+  }
+  .contact-email:hover{ border-color:var(--gold); color:var(--gold); }
+  .foot-links{
+    display:flex;
+    gap:18px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .foot-links a{ color:var(--text-muted); text-decoration:none; }
+  .foot-links a:hover{ color:var(--text); }
+  .foot-meta{
+    margin-top:34px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="nav-id">KKB / 2026</span>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#coding">Coding</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#hackathons">Hackathons</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="role-tag">Backend &amp; ML systems engineer</div>
+      <h1 class="name">Kavin Kumar B</h1>
+      <p class="hero-desc">
+        I build backend systems and ML pipelines that verify, authorize, and process
+        data before anything downstream gets to trust it — access-control gateways,
+        document and identity verification, and failure prediction. Currently an
+        M.Sc Integrated Data Science student at Coimbatore Institute of Technology.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:kavin45264@gmail.com">Email</a>
+        <a href="https://github.com/KavinKumar486">GitHub</a>
+        <a href="https://www.linkedin.com/in/kavin-kumar-b-4a8a37283/">LinkedIn</a>
+        <a href="https://leetcode.com/u/kavin_kumar">LeetCode</a>
+        <a href="https://www.codechef.com/users/kavin45264">CodeChef</a>
+        <a href="https://www.geeksforgeeks.org/profile/kavinds27">GeeksforGeeks</a>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div class="readout-head">
+        <span><span class="readout-dot"></span>coding profile</span>
+        <span>live</span>
+      </div>
+      <div class="readout-row"><span class="k">Problems solved</span><span class="v">1,258</span></div>
+      <div class="readout-row"><span class="k">Active days</span><span class="v">814</span></div>
+      <div class="readout-row"><span class="k">LeetCode rating</span><span class="v">1,604</span></div>
+      <div class="readout-row"><span class="k">Contests attended</span><span class="v">19</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-label">About</div>
+    <p class="lede">
+      Most of what I build sits at the boundary between systems and data. At NGP WebSmart
+      I worked on the backend of an e-signature platform — batch document processing,
+      gateway reliability, and consolidating signing logic that used to be duplicated per
+      document type. Outside of internship work, my projects lean toward the same problem:
+      deciding whether something (an AI agent, a document, a face, a machine) should be
+      trusted before it's acted on.
+    </p>
+    <p class="lede">
+      When I'm not building, I'm usually solving — competitive programming has been a
+      constant since early in the degree, currently sitting at 1,250+ problems solved
+      across LeetCode, GeeksforGeeks, and HackerRank.
+    </p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-label">Experience</div>
+    <h2>Where I've worked</h2>
+    <div class="timeline-item">
+      <div class="exp-head">
+        <div>
+          <div class="exp-role">Software Developer Intern</div>
+          <div class="exp-org">NGP WebSmart Pvt Ltd</div>
+        </div>
+        <div class="exp-date">Jan 2025 — Nov 2025</div>
+      </div>
+      <ul class="bullets">
+        <li>Re-architected e-sign backend workflows with batch document processing, cutting redundant PDF reads by 37% and raising overall processing throughput.</li>
+        <li>Refactored a production gateway microservice's request handling and fallback routing so it held up reliably under peak traffic.</li>
+        <li>Replaced per-document-type signing logic with a single shared processing layer, cutting integration time for new document types by 90%.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-label">Selected work</div>
+    <h2>Projects</h2>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Tool Permission Proxy — AI agent access-control middleware</div>
+        <span class="project-tag">access control</span>
+      </div>
+      <ul class="bullets tight">
+        <li>Architected a 6-step, scope-aware access-control pipeline across 5 DynamoDB tables so AI agents never hold tool credentials directly.</li>
+        <li>Built a fail-closed scope evaluator (equality, inequality, membership conditions), tested across a 7-case live-AWS matrix with zero silent-allow failures.</li>
+        <li>Benchmarked 1,000 authorization requests at 100ms P50 / 300ms P99; added session-probing detection with SNS alerts and CloudWatch audit logging.</li>
+      </ul>
+      <div class="stack">Python · AWS Lambda · API Gateway · DynamoDB · SNS · Secrets Manager · CloudWatch</div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Predictive maintenance — remaining useful life estimation</div>
+        <span class="project-tag">predictive ML</span>
+      </div>
+      <ul class="bullets tight">
+        <li>Explored NASA CMAPSS turbofan sensor data to surface degradation patterns, sensor drift, and feature correlations.</li>
+        <li>Engineered temporal features and tuned XGBoost for RUL prediction — 14.8-cycle MAE, a 21% improvement over the baseline regression.</li>
+        <li>Shipped a FastAPI dashboard with SHAP explainability for real-time prediction and maintenance decisions.</li>
+      </ul>
+      <div class="stack">Python · Pandas · XGBoost · SHAP · Optuna · FastAPI</div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Document verification &amp; face anti-spoofing pipeline</div>
+        <span class="project-tag">computer vision</span>
+      </div>
+      <ul class="bullets tight">
+        <li>Built a KYC pipeline using YOLOv8 to detect and crop identity documents ahead of downstream verification.</li>
+        <li>Trained a CNN-based anti-spoofing model with transfer learning and data augmentation to separate genuine faces from presentation attacks.</li>
+      </ul>
+      <div class="stack">Python · PyTorch · YOLOv8 · OpenCV · FastAPI</div>
+    </div>
+  </div>
+</section>
+
+<section id="coding">
+  <div class="wrap">
+    <div class="section-label">Coding practice</div>
+    <h2>Competitive programming</h2>
+
+    <div class="coding-grid">
+      <div class="stat-cell">
+        <div class="stat-num">1,258</div>
+        <div class="stat-label">questions solved</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">814</div>
+        <div class="stat-label">active days</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">19</div>
+        <div class="stat-label">contests attended</div>
+      </div>
+    </div>
+
+    <div class="chart-block">
+      <div>
+        <svg viewBox="0 0 300 90" width="100%" height="90" preserveAspectRatio="none">
+          <polyline points="0,75 25,68 50,60 75,63 100,45 125,40 150,30 175,34 200,20 225,24 250,10 275,8 300,14"
+            fill="none" stroke="#E3A83B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="chart-caption">LeetCode rating trend — currently 1,604</div>
+      </div>
+      <div>
+        <div class="stat-label">DSA problems by difficulty — 1,067 total</div>
+        <div class="diff-bar">
+          <div class="diff-easy" style="width:47%"></div>
+          <div class="diff-med" style="width:49%"></div>
+          <div class="diff-hard" style="width:4%"></div>
+        </div>
+        <div class="diff-legend">
+          <span class="legend-easy">Easy 501</span>
+          <span class="legend-med">Medium 525</span>
+          <span class="legend-hard">Hard 41</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-label">Skills</div>
+    <h2>Working with</h2>
+
+    <div class="skill-row">
+      <div class="skill-cat">languages</div>
+      <div class="skill-vals"><b>Python</b>, JavaScript, Java</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">ml / data</div>
+      <div class="skill-vals">Machine Learning, Deep Learning, NLP, Computer Vision</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">frameworks</div>
+      <div class="skill-vals">Flask, FastAPI, Vue.js, Django</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">libraries</div>
+      <div class="skill-vals">Scikit-learn, PyTorch, OpenCV, Plotly, XGBoost, SHAP</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">cloud / aws</div>
+      <div class="skill-vals">Lambda, API Gateway, DynamoDB, SNS, Secrets Manager, CloudWatch</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">databases</div>
+      <div class="skill-vals">MySQL, MongoDB, Neo4j</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat">tools</div>
+      <div class="skill-vals">Git, GitHub, RabbitMQ, Apache Airflow</div>
+    </div>
+  </div>
+</section>
+
+<section id="leadership">
+  <div class="wrap">
+    <div class="section-label">Leadership</div>
+    <h2>Outside the codebase</h2>
+
+    <div class="lead-item">
+      <div class="lead-role">Operations Head, EBSB</div>
+      <div class="lead-desc">Led operations for three inter-state cultural events — ICE Fest 1, ICE Fest 2, and Cook &amp; Culture — with 500, 650, and 100 participants respectively; planned logistics, coordinated volunteers, and ran event-day execution.</div>
+    </div>
+    <div class="lead-item">
+      <div class="lead-role">Chief of Operations, Datathon</div>
+      <div class="lead-desc">Directed participant operations for a 24-hour technical hackathon, coordinating teams and handling event-day operational requirements.</div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="section-label">Research</div>
+    <h2>Paper presentation</h2>
+    <div class="lead-item" style="border-top:none; padding-top:0;">
+      <div class="lead-role">"Utilizing Deep Learning for Malaria Cell Identification: A Comparative Analysis of AlexNet and DenseNet"</div>
+      <div class="lead-desc">Presented at the International Conference on Smart Technology, Artificial Intelligence and Computer Engineering (ICSTAICE) — Institute of Research and Journals, Chennai, November 2023.</div>
+    </div>
+  </div>
+</section>
+
+<section id="hackathons">
+  <div class="wrap">
+    <div class="section-label">Hackathons</div>
+    <h2>Where I've competed</h2>
+
+    <div class="lead-item">
+      <div class="lead-role">Kharagpur Data Science Hackathon 2025</div>
+      <div class="lead-desc">IIT Kharagpur, with team Straw Hats.</div>
+    </div>
+    <div class="lead-item">
+      <div class="lead-role">HACKRUSH — AI &amp; ML Hackathon</div>
+      <div class="lead-desc">Women Empowerment Cell, Coimbatore Institute of Technology, March 2025.</div>
+    </div>
+    <div class="lead-item">
+      <div class="lead-role">Byte-Sized Brainstorm — The Dough Vinci Code</div>
+      <div class="lead-desc">Career Guidance &amp; Counselling Cell and Department of Computing, CIT, April 2024.</div>
+    </div>
+    <div class="lead-item">
+      <div class="lead-role">Melinia '24 — SequelVerse &amp; Hackathon Round 1</div>
+      <div class="lead-desc">Department of Computing, CIT, with team The Coffin Crusaders, February 2024.</div>
+    </div>
+    <div class="lead-item">
+      <div class="lead-role">KRIYA 2024 — NEXTECH</div>
+      <div class="lead-desc">PSG College of Technology, February 2024.</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="section-label">Contact</div>
+    <div class="contact-row">
+      <a class="contact-email" href="mailto:kavin45264@gmail.com">kavin45264@gmail.com</a>
+      <div class="foot-links">
+        <a href="https://github.com/KavinKumar486">GitHub</a>
+        <a href="https://linkedin.com/in/kavin-kumar-b">LinkedIn</a>
+        <a href="https://leetcode.com/u/kavin_kumar">LeetCode</a>
+      </div>
+    </div>
+    <div class="foot-meta">Coimbatore Institute of Technology — M.Sc Integrated, Data Science</div>
+  </div>
+</footer>
+
+</body>
+</html>
