@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kavin Kumar B – Software and AI/ML Engineer</title>
+<meta name="description" content="Final-year Data Science student building backend systems, AI agents and ML pipelines that decide what is safe to trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F2; --surface:#FFFFFF; --ink:#151A1E; --muted:#59636B; --rule:#D4D9D5;
+  --accent:#2441B8; --ok:#1B7A4B; --no:#B0302B;
+  --sans:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#101417;--surface:#171D21;--ink:#E9EDEA;--muted:#9AA5AB;--rule:#2A3338;--accent:#8FA5FF;--ok:#4FC089;--no:#F0807A}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;gap:16px;flex-wrap:wrap}
+header.top .name{font-weight:800;letter-spacing:-.01em;text-decoration:none}
+nav{display:flex;gap:22px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--muted);font-weight:500;font-size:.97rem}
+nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:56px 0 72px}
+h1{font-size:clamp(2.3rem,5.4vw,3.9rem);line-height:1.04;letter-spacing:-.03em;font-weight:800;margin:0 0 22px;max-width:15ch}
+.lede{color:var(--muted);max-width:52ch;margin:0 0 28px;font-size:1.12rem}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 20px;border-radius:8px;font-weight:600;text-decoration:none;border:1.5px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.status{margin:26px 0 0;color:var(--muted);font-size:.97rem}
+.status b{color:var(--ink);font-weight:600}
+
+/* demo */
+.demo{background:var(--surface);border:1.5px solid var(--ink);border-radius:14px;padding:20px}
+.demo h2{margin:0 0 4px;font-size:1.05rem}
+.demo p.sub{margin:0 0 14px;color:var(--muted);font-size:.9rem}
+.opts{display:grid;gap:8px}
+.opts button{font:500 .95rem var(--sans);text-align:left;padding:10px 12px;background:var(--bg);border:1px solid var(--rule);border-radius:8px;color:var(--ink);cursor:pointer}
+.opts button:hover,.opts button[aria-pressed="true"]{border-color:var(--accent);background:var(--surface)}
+.opts button[aria-pressed="true"]{box-shadow:inset 3px 0 0 var(--accent)}
+.out{margin-top:14px;border-top:1px solid var(--rule);padding-top:14px;min-height:122px;font-family:var(--mono);font-size:.84rem;line-height:1.55}
+.out .verdict{font:800 1.4rem var(--sans);margin-bottom:4px}
+.out .verdict.ok{color:var(--ok)} .out .verdict.no{color:var(--no)}
+.out .req{color:var(--muted);word-break:break-word}
+.out .why{margin-top:6px}
+.out.flash .verdict{animation:pop .28s ease-out}
+@keyframes pop{from{transform:translateY(5px);opacity:0}to{transform:none;opacity:1}}
+.note{margin:10px 0 0;color:var(--muted);font-size:.8rem}
+
+/* stats */
+.stats{display:flex;flex-wrap:wrap;gap:12px 44px;padding:22px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:8px}
+.stats div{display:flex;flex-direction:column}
+.stats b{font-size:1.6rem;font-weight:800;letter-spacing:-.02em}
+.stats span{color:var(--muted);font-size:.9rem}
+
+/* sections */
+section{padding:64px 0 8px}
+section>h2{font-size:1.9rem;letter-spacing:-.02em;margin:0 0 8px;font-weight:800}
+section>p.intro{margin:0 0 30px;color:var(--muted);max-width:60ch}
+.row{display:grid;grid-template-columns:300px 1fr;gap:40px;padding:28px 0;border-top:1px solid var(--rule)}
+.row h3{margin:0 0 6px;font-size:1.2rem;line-height:1.25;letter-spacing:-.01em}
+.row .meta{color:var(--muted);font-size:.93rem;margin:0}
+.row .stack{margin:12px 0 0;color:var(--accent);font-size:.9rem;font-weight:500}
+.row ul{margin:0;padding-left:1.1em}
+.row li{margin:0 0 9px}
+.row li:last-child{margin-bottom:0}
+.skills{display:grid;grid-template-columns:200px 1fr;gap:10px 40px;border-top:1px solid var(--rule);padding-top:24px}
+.skills dt{font-weight:600}
+.skills dd{margin:0;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.two h3{margin:0 0 6px;font-size:1.1rem}
+.two p{margin:0 0 18px;color:var(--muted)}
+.two p b{color:var(--ink);font-weight:600}
+.contact{padding-bottom:72px}
+.contact .big{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;max-width:22ch;margin:0 0 22px}
+.links{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:22px}
+.links a{color:var(--muted);text-underline-offset:4px}
+.links a:hover{color:var(--ink)}
+footer{border-top:1px solid var(--rule);padding:22px 0 40px;color:var(--muted);font-size:.9rem}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:36px;padding:32px 0 48px}
+  .row{grid-template-columns:1fr;gap:14px}
+  .skills{grid-template-columns:1fr;gap:2px}
+  .skills dd{margin-bottom:12px}
+  .two{grid-template-columns:1fr;gap:0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.out.flash .verdict{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="name" href="#top">Kavin Kumar B</a>
+  <nav aria-label="Sections">
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#more">More</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div>
+    <h1>I build the checks that decide what a system should trust.</h1>
+    <p class="lede">Final-year Data Science student at Coimbatore Institute of Technology. I work on backend services, AI agents and ML pipelines, from an e-sign platform used in production to an AWS gateway that keeps AI agents away from raw credentials.</p>
+    <div class="cta">
+      <a class="btn primary" href="Kavin_Kumar_Resume.pdf">Download resume</a>
+      <a class="btn" href="mailto:kavin45264@gmail.com">Email me</a>
+    </div>
+    <p class="status"><b>Open to internships</b> in software engineering and AI/ML, starting with my final semester.</p>
+  </div>
+
+  <div class="demo" id="demo">
+    <h2>Try the permission proxy</h2>
+    <p class="sub">An AI agent was granted read access to invoices in region IN. Pick what it asks for.</p>
+    <div class="opts" role="group" aria-label="Agent requests">
+      <button type="button" data-k="0" aria-pressed="false">Read invoices in region IN</button>
+      <button type="button" data-k="1" aria-pressed="false">Read invoices in region US</button>
+      <button type="button" data-k="2" aria-pressed="false">Send a request with no region field</button>
+      <button type="button" data-k="3" aria-pressed="false">Try five tools it was never granted</button>
+    </div>
+    <div class="out" id="out" aria-live="polite">
+      <span class="req">Choose a request to see the decision.</span>
+    </div>
+    <p class="note">Illustrative demo of the fail-closed behavior in my Tool Permission Proxy project. It is not the real gateway.</p>
+  </div>
+</div>
+
+<div class="stats" aria-label="Coding profile">
+  <div><b>1,300+</b><span>problems solved</span></div>
+  <div><b>850+</b><span>active days</span></div>
+  <div><b>1657</b><span>contest rating, top 24% globally</span></div>
+  <div><b>786</b><span>GeeksforGeeks score, 16th in my institute</span></div>
+</div>
+
+<section id="experience">
+  <h2>Experience</h2>
+  <div class="row">
+    <div>
+      <h3>Software Developer Intern</h3>
+      <p class="meta">NGP WebSmart Pvt Ltd<br>Jan 2025 to Nov 2025</p>
+    </div>
+    <ul>
+      <li>Re-architected e-sign backend workflows with batch document processing, cutting redundant PDF reads by <b>37%</b> and raising throughput.</li>
+      <li>Reworked a production gateway microservice's request handling and fallback routing so it stayed reliable under peak traffic.</li>
+      <li>Replaced per-document signing logic with one shared processing layer, cutting integration time for new document types by <b>90%</b>.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <p class="intro">Most of my projects answer the same question: should this agent, document, face or machine be trusted before anything acts on it?</p>
+
+  <div class="row">
+    <div>
+      <h3>Tool Permission Proxy</h3>
+      <p class="meta">Access control for AI agents</p>
+      <p class="stack">Python, AWS Lambda, API Gateway, DynamoDB, SNS, Secrets Manager, CloudWatch</p>
+    </div>
+    <ul>
+      <li>Built a 6-step, scope-aware authorization pipeline across 5 DynamoDB tables, so AI agents never hold tool credentials directly.</li>
+      <li>Wrote a fail-closed scope evaluator (equality, inequality, membership). It passed a 7-case live AWS test matrix with zero silent-allow failures.</li>
+      <li>Benchmarked 1,000 requests at 100 ms P50 and 300 ms P99, and added probing detection with SNS alerts and CloudWatch audit logs.</li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div>
+      <h3>FinSight AI</h3>
+      <p class="meta">Multimodal RAG and multi-agent financial analysis</p>
+      <p class="stack">Python, CrewAI, ChromaDB, DuckDB, Neo4j, Redis, React.js</p>
+    </div>
+    <ul>
+      <li>Analyzes 10-K filings with layout-aware ingestion that reads both text and page visuals.</li>
+      <li>Retrieves from three stores: ChromaDB for semantic search, DuckDB for structured financials, Neo4j for relationships.</li>
+      <li>Runs Planner, Retriever, Analyst and Writer agents in CrewAI, with RAGAS evaluation and guardrails that reject unsupported answers.</li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div>
+      <h3>Predictive maintenance</h3>
+      <p class="meta">Remaining useful life estimation</p>
+      <p class="stack">Python, XGBoost, SHAP, Optuna, FastAPI</p>
+    </div>
+    <ul>
+      <li>Explored NASA CMAPSS turbofan data for degradation patterns, sensor drift and feature correlations.</li>
+      <li>Engineered temporal features and tuned XGBoost to a 14.8-cycle MAE, <b>21%</b> better than the baseline regression.</li>
+      <li>Shipped a FastAPI dashboard with SHAP explanations for real-time predictions and maintenance decisions.</li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div>
+      <h3>Document verification and face anti-spoofing</h3>
+      <p class="meta">KYC computer vision pipeline</p>
+      <p class="stack">Python, PyTorch, YOLOv8, OpenCV, FastAPI</p>
+    </div>
+    <ul>
+      <li>Used YOLOv8 to detect and crop identity documents before verification.</li>
+      <li>Trained a CNN with transfer learning and augmentation to tell genuine faces from presentation attacks.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>AI and ML</dt><dd>Machine learning, deep learning, NLP, computer vision, RAG, multi-agent systems, model evaluation</dd>
+    <dt>Libraries</dt><dd>PyTorch, Scikit-learn, XGBoost, OpenCV, YOLOv8, SHAP, Optuna, Pandas, Plotly</dd>
+    <dt>Languages</dt><dd>Python, SQL, JavaScript</dd>
+    <dt>Backend and data</dt><dd>FastAPI, Flask, REST APIs, Apache Airflow, RabbitMQ, Redis, MySQL, MongoDB, Neo4j, ChromaDB, DuckDB</dd>
+    <dt>Cloud and tools</dt><dd>AWS (Lambda, API Gateway, DynamoDB, SNS, Secrets Manager, CloudWatch), Linux, Git, GitHub</dd>
+  </dl>
+</section>
+
+<section id="more">
+  <h2>Beyond the code</h2>
+  <p class="intro">Research, competitions and the events I ran.</p>
+  <div class="two">
+    <div>
+      <h3>Research</h3>
+      <p><b>Malaria cell identification with AlexNet and DenseNet.</b> Presented a comparative study at ICSTAICE (Institute of Research and Journals, Chennai), November 2023.</p>
+      <h3>Hackathons</h3>
+      <p><b>Kharagpur Data Science Hackathon 2025</b> at IIT Kharagpur, with team Straw Hats.<br>
+      <b>HACKRUSH</b>, AI and ML hackathon, CIT, March 2025.<br>
+      <b>Byte-Sized Brainstorm</b>, CIT, April 2025.</p>
+    </div>
+    <div>
+      <h3>Leadership</h3>
+      <p><b>Operations Head, EBSB.</b> Ran three inter-state cultural events (ICE Fest 1, ICE Fest 2, Cook &amp; Culture) for 500, 650 and 100 participants, including logistics and volunteer coordination.</p>
+      <p><b>Chief of Operations, Datathon.</b> Directed participant operations for a 24-hour technical hackathon.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact</h2>
+  <p class="big">Looking for an intern who ships reliable backends and ML? Let's talk.</p>
+  <div class="cta">
+    <a class="btn primary" href="mailto:kavin45264@gmail.com">kavin45264@gmail.com</a>
+    <a class="btn" href="Kavin_Kumar_Resume.pdf">Download resume</a>
+  </div>
+  <div class="links">
+    <a href="https://github.com/KavinKumar486">GitHub</a>
+    <a href="https://www.linkedin.com/in/kavin-kumar-b-4a8a37283/">LinkedIn</a>
+    <a href="https://leetcode.com/u/kavin_kumar">LeetCode</a>
+    <a href="https://www.codechef.com/users/kavin45264">CodeChef</a>
+    <a href="https://www.geeksforgeeks.org/profile/kavinds27">GeeksforGeeks</a>
+  </div>
+</section>
+</main>
+
+<footer>Kavin Kumar B, Coimbatore. Built in 2026.</footer>
+</div>
+
+<script>
+(function(){
+  var S=[
+    {v:"ALLOW",c:"ok",req:"read invoices, region = IN",why:"Scope matches the grant (region = IN). The proxy fetches the credential and calls the tool for the agent."},
+    {v:"DENY",c:"no",req:"read invoices, region = US",why:"Scope mismatch: region US is outside the grant. Nothing is called, and the attempt is logged."},
+    {v:"DENY",c:"no",req:"read invoices, region = (missing)",why:"The condition can't be evaluated, so the proxy fails closed instead of guessing."},
+    {v:"DENY + ALERT",c:"no",req:"5 requests for tools outside the grant",why:"Repeated attempts look like probing. Every call is denied and an SNS alert is raised."}
+  ];
+  var out=document.getElementById("out"),btns=document.querySelectorAll(".opts button");
+  btns.forEach(function(b){
+    b.addEventListener("click",function(){
+      var s=S[+b.dataset.k];
+      btns.forEach(function(x){x.setAttribute("aria-pressed",x===b)});
+      out.classList.remove("flash");void out.offsetWidth;out.classList.add("flash");
+      out.innerHTML='<div class="verdict '+s.c+'">'+s.v+'</div><div class="req">'+s.req+'</div><div class="why">'+s.why+'</div>';
+    });
+  });
+})();
+</script>
+</body>
+</html>
